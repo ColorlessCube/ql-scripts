@@ -1137,9 +1137,9 @@ class DeWu:
 
 async def main():
     task = []
-    for index, token in enumerate(dw_tokens):
-        token = token.split("#")[0]
-        sk = token.split("#")[1]
+    for index, item in enumerate(dw_tokens):
+        token = item.split("#")[0]
+        sk = item.split("#")[1]
         dw = DeWu(token, index, sk)
         task.append(dw.run())
     await asyncio.gather(*task)
