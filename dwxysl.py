@@ -24,7 +24,7 @@ from fn_print import fn_print
 from get_env import get_env
 from send_notify import send_notification_message_collection
 
-dw_tokens = get_env("DW_TOKENS", ";")
+dw_tokens = get_env("DW_TOKENS", "\n")
 
 share_code_list = []
 HELP_SIGNAL = True  # 是否助力
