@@ -26,10 +26,12 @@ TIMEOUT = 10  # 连接超时时间（秒）
 MAX_RETRIES = 3  # 最大重试次数
 RETRY_INTERVAL = 30  # 重试间隔（秒）
 
+
 def log_message(message):
     """打印带时间戳的日志"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"[{timestamp}] {message}")
+
 
 def check_google_connectivity():
     """检查Google连通性"""
@@ -45,6 +47,7 @@ def check_google_connectivity():
         log_message(f"❌ 无法连接Google: {e}")
         return False
 
+
 def check_openclash_status():
     """检查OpenClash服务状态"""
     try:
@@ -56,7 +59,7 @@ def check_openclash_status():
                 # 根据API响应判断状态，常见的状态字段可能是 'running', 'status', 'state' 等
                 if isinstance(data, dict):
                     # 检查可能的状态字段
-                    status_fields = ['running', 'status', 'state', 'enabled', 'active']
+                    status_fields = ['running', 'status', 'state', 'enabled', 'active', 'success']
                     for field in status_fields:
                         if field in data:
                             status_value = data[field]
@@ -90,6 +93,7 @@ def check_openclash_status():
         log_message(f"❌ OpenClash状态检查异常: {e}")
         return False
 
+
 def start_openclash():
     """启动OpenClash服务"""
     try:
@@ -107,6 +111,7 @@ def start_openclash():
     except requests.exceptions.RequestException as e:
         log_message(f"❌ OpenClash启动请求异常: {e}")
         return False
+
 
 def restart_openclash():
     """重启OpenClash代理 - 通过down + up实现，增强鲁棒性"""
@@ -183,6 +188,7 @@ def restart_openclash():
         log_message(f"❌ 重启过程中发生未预期的错误: {e}")
         return False
 
+
 def main():
     """主函数 - 智能检查和修复网络连接"""
     log_message("🚀 开始智能网络连接检查...")
@@ -250,6 +256,7 @@ def main():
             log_message("❌ OpenClash重启失败，请手动处理")
 
     log_message("🏁 网络诊断完成，请根据上述信息进行相应处理")
+
 
 if __name__ == "__main__":
     main()
